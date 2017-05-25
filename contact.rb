@@ -54,7 +54,7 @@ class Contact
     elsif attribute == "email"
       self.email = value
     elsif attribute == "note"
-      self.note = "value"
+      self.note = value
     end
   end
 
@@ -97,7 +97,7 @@ class Contact
     @@contacts.delete(self)
   end
 
-end 
+end
 
 
 
