@@ -19,8 +19,8 @@ class Contact
 
   # This method should call the initializer,
   # store the newly created contact, and then return it
-  def self.create (first_name, last_name, email)
-    new_contact = Contact.new(first_name, last_name, email)
+  def self.create (first_name, last_name, email, note)
+    new_contact = Contact.new(first_name, last_name, email, note)
     @@contacts << new_contact
       return new_contact
   end
@@ -35,10 +35,11 @@ class Contact
   def self.find(id)
     unique = nil
     @@contacts.each do |contact|
-      if id = contact.id
-        unique_contact == contact
+      if id == contact.id
+        unique = contact
       end
     end
+    unique
   end
 
 
