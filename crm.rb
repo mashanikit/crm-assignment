@@ -1,6 +1,8 @@
 require_relative 'contact'
 
-
+at_exit do
+  ActiveRecord::Base.connection.close
+end
 
 class CRM
 
