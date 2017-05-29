@@ -1,11 +1,12 @@
-require 'active_record'
-require 'mini_record'
+require "active_record"
+require "mini_record"
+gem "activerecord", "=4.2.7"
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'crm.sqlite3')
 
 
 
-class Contact < ActiveRecord:: Base
+class Contact < ActiveRecord::Base
 
   field :first_name, as: :string
   field :last_name,  as: :string
@@ -102,7 +103,7 @@ class Contact < ActiveRecord:: Base
 
   def full_name
     "#{first_name} #{last_name}"
-    end
+  end
 
   # This method should delete the contact
   # HINT: Check the Array class docs for built-in methods that might be useful here

@@ -1,9 +1,5 @@
 require_relative 'contact'
 
-at_exit do
-  ActiveRecord::Base.connection.close
-end
-
 class CRM
 
   def initialize(name)
@@ -53,14 +49,19 @@ class CRM
     print 'Enter a Note: '
     note = "N/A"
 
-    Contact.create(first_name, last_name, email)
+    contact = Contact.create(
+    first_name: first_name,
+    last_name: last_name,
+    email: email,
+    note: note
+    )
 
   end
 
   def modify_existing_contact
     puts "What is the first name of the contact you want to modify?"
     contact = gets.chomp
-    contact_found = Contact.find_by("first_name", contact)
+    contact_found = Contact.find_by(first_name: contact)
 
     puts "What attribute do you want to modify?"
     attribute = gets.chomp
@@ -68,24 +69,25 @@ class CRM
     change = gets.chomp
 
 
-    contact_found.update(attribute, change)
+    contact_found.update(attribute => change)
   end
 
 
   def delete_contact
     puts "What is the first name of the contact you want to modify?"
     contact_delete = gets.chomp
-    contact_to_delete = Contact.find_by("first_name", contact_delete)
-    print "Contact deleted"
+    contact_to_delete = Contact.find_by(first_name: contact_delete)
     contact_to_delete.delete
+    print "Contact deleted"
   end
 
   def display_all_contacts
-      print ‘Displaying all contacts...’
+      print "Displaying all contacts..."
       Contact.all.each do |contact|
-        puts "#{contact.first_name} #{contact.last_name} #{contact.email} #{contact.notes}"
+        puts "#{contact.first_name} #{contact.last_name} #{contact.email} #{contact.note}"
       end
-    end
+
+  end
 
    def search_by_attribute
      print "Enter the attribute you want to search for:"
@@ -94,10 +96,14 @@ class CRM
      print "What is the name?"
      name_search = gets.chomp
 
-     print Contact.find_by(attribute_search, name_search)
+     print Contact.find_by(attribute_search => name_search)
 
   end
   a_crm_app = CRM.new("NewCRM")
   a_crm_app.main_menu
 
+end
+
+at_exit do
+  ActiveRecord::Base.connection.close
 end
